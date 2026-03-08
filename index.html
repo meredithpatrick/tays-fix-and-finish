@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tays Fix and Finish — Professional drywall, painting, finish carpentry, and handyman services for homeowners across the Austin, TX area." />
+  <title>Tays Fix and Finish — Drywall, Painting &amp; Finish Work in Austin, TX</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Brand Design Tokens -->
+  <link rel="stylesheet" href="tokens.css" />
+
+  <!-- Tailwind Config: extends theme with brand tokens (mirrors tailwind.config.js) -->
+  <script>
+    window.tailwind.config = {
+      theme: {
+        screens: {
+          'xs': '340px',
+          'sm': '640px',
+          'lg': '1024px',
+          'xl': '1280px',
+        },
+        extend: {
+          colors: {
+            'black':       '#1a1a1a',
+            'teal-dark':   '#2a4e51',
+            'teal-med':    '#5f9798',
+            'teal-bright': '#55c7cb',
+            'teal':        '#b7d7d8',
+            'white':       '#fefefe',
+            'gray':        '#f4f4f4',
+            'gray-dark':   '#546162',
+            'gray-med':    '#acacac',
+          },
+          spacing: {
+            'sizing-0':  '0px',
+            'sizing-1':  '4px',
+            'sizing-2':  '8px',
+            'sizing-3':  '12px',
+            'sizing-4':  '16px',
+            'sizing-5':  '24px',
+            'sizing-6':  '32px',
+            'sizing-7':  '40px',
+            'sizing-8':  '48px',
+            'sizing-9':  '56px',
+            'sizing-10': '72px',
+            'sizing-11': '80px',
+            'sizing-12': '104px',
+            'sizing-13': '120px',
+            'sizing-14': '208px',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Base */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; }
+
+    /* ── Nav scroll state ── */
+    #navbar { transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+    #navbar.scrolled {
+      background-color: rgba(42, 78, 81, 0.97);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.28);
+    }
+    #navbar.scrolled .nav-link  { color: var(--colors-teal); }
+    #navbar.scrolled .nav-link:hover { color: var(--colors-white); }
+    #navbar.scrolled .nav-logo  { color: var(--colors-white); }
+    #navbar.scrolled .ham-icon  { color: var(--colors-white); }
+    #navbar.scrolled #mobile-menu { border-color: rgba(95,151,152,0.35); }
+
+    /* ── Hero geometric shapes ── */
+    .hero-geo { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-geo > span { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+    .geo-1 { clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 44% 100%);
+              background-color: var(--colors-teal-med); opacity: 0.18; }
+    .geo-2 { clip-path: polygon(74% 0%, 100% 0%, 100% 62%, 84% 62%);
+              background-color: var(--colors-teal-bright); opacity: 0.13; }
+    .geo-3 { clip-path: polygon(50% 0%, 62% 0%, 47% 100%, 35% 100%);
+              background-color: var(--colors-teal); opacity: 0.07; }
+    .geo-4 { clip-path: polygon(0% 84%, 17% 70%, 12% 100%, 0% 100%);
+              background-color: var(--colors-teal-bright); opacity: 0.08; }
+    .geo-5 { clip-path: polygon(82% 62%, 100% 62%, 100% 100%, 67% 100%);
+              background-color: var(--colors-teal); opacity: 0.10; }
+
+    /* ── Service cards ── */
+    .service-card { transition: border-left-color 0.25s ease, box-shadow 0.25s ease; border-left: 3px solid transparent; }
+    .service-card:hover { border-left-color: var(--colors-teal-bright); box-shadow: 0 6px 24px rgba(42,78,81,0.12); }
+    .service-card:hover .service-icon { color: var(--colors-teal-bright); }
+    .service-icon { color: var(--colors-teal-med); transition: color 0.25s ease; }
+
+    /* ── Work grid ── */
+    .work-item { cursor: pointer; }
+    .work-item img { transition: transform 0.35s ease; display: block; }
+    .work-item:hover img { transform: scale(1.05); }
+    .work-overlay { opacity: 0; transition: opacity 0.3s ease; }
+    .work-item:hover .work-overlay,
+    .work-item:focus-visible .work-overlay { opacity: 1; }
+    .work-item:focus-visible { outline: 2px solid var(--colors-teal-bright); outline-offset: 2px; }
+
+    /* ── Testimonial carousel ── */
+    .testimonial-slide { transition: opacity 0.5s ease-in-out; }
+    .carousel-dot { width: 10px; height: 10px; border-radius: 9999px;
+                    background-color: var(--colors-teal-med);
+                    transition: background-color 0.3s ease; border: none; cursor: pointer; padding: 0; }
+    .carousel-dot.active { background-color: var(--colors-teal-bright); }
+
+    /* ── Lightbox ── */
+    #lightbox { background-color: rgba(26, 26, 26, 0.92); }
+
+    /* ── File upload dropzone ── */
+    .dropzone { transition: border-color 0.2s ease, background-color 0.2s ease; }
+    .dropzone.drag-over { border-color: var(--colors-teal-bright) !important; background-color: rgba(85,199,203,0.04); }
+
+    /* ── Focus ring (global) ── */
+    :focus-visible { outline: 2px solid var(--colors-teal-bright); outline-offset: 2px; }
+    input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; }
+  </style>
+</head>
+
+<body class="bg-white text-black font-sans antialiased">
+
+
+<!-- ================================================================
+     1. TOP NAVIGATION
+     ================================================================ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+  <div class="max-w-screen-xl mx-auto px-sizing-5 lg:px-sizing-10">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+
+      <!-- Wordmark -->
+      <a href="#" class="nav-logo text-teal-dark font-extrabold text-lg lg:text-xl tracking-tight transition-colors">
+        Tays Fix &amp; Finish
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden sm:flex items-center gap-sizing-7">
+        <a href="#services"     class="nav-link text-gray-dark hover:text-teal-bright font-medium text-sm transition-colors">Services</a>
+        <a href="#work"         class="nav-link text-gray-dark hover:text-teal-bright font-medium text-sm transition-colors">Recent Work</a>
+        <a href="#testimonials" class="nav-link text-gray-dark hover:text-teal-bright font-medium text-sm transition-colors">Testimonials</a>
+        <a href="#contact"      class="nav-link text-gray-dark hover:text-teal-bright font-medium text-sm transition-colors">Contact</a>
+      </div>
+
+      <!-- CTA + Hamburger -->
+      <div class="flex items-center gap-sizing-3">
+        <a href="#contact"
+           class="hidden sm:inline-flex items-center px-sizing-5 py-sizing-2 bg-teal-bright text-black font-semibold rounded-full hover:bg-teal-med transition-colors text-sm">
+          Get a Quote
+        </a>
+        <button id="hamburger"
+                class="sm:hidden p-2 ham-icon text-gray-dark rounded"
+                aria-label="Toggle navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu">
+          <svg id="ham-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="ham-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+    </div><!-- /flex row -->
+
+    <!-- Mobile dropdown -->
+    <div id="mobile-menu" class="hidden sm:hidden border-t border-gray/60 pb-sizing-4" role="navigation" aria-label="Mobile navigation">
+      <div class="flex flex-col gap-sizing-1 pt-sizing-3">
+        <a href="#services"     class="mobile-link nav-link text-gray-dark hover:text-teal-bright font-medium px-sizing-2 py-sizing-3 rounded transition-colors text-sm">Services</a>
+        <a href="#work"         class="mobile-link nav-link text-gray-dark hover:text-teal-bright font-medium px-sizing-2 py-sizing-3 rounded transition-colors text-sm">Recent Work</a>
+        <a href="#testimonials" class="mobile-link nav-link text-gray-dark hover:text-teal-bright font-medium px-sizing-2 py-sizing-3 rounded transition-colors text-sm">Testimonials</a>
+        <a href="#contact"      class="mobile-link nav-link text-gray-dark hover:text-teal-bright font-medium px-sizing-2 py-sizing-3 rounded transition-colors text-sm">Contact</a>
+        <a href="#contact"
+           class="mobile-link mt-sizing-2 inline-flex justify-center px-sizing-5 py-sizing-3 bg-teal-bright text-black font-semibold rounded-full hover:bg-teal-med transition-colors text-sm">
+          Get a Quote
+        </a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- ================================================================
+     2. HERO
+     ================================================================ -->
+<section id="hero" class="relative min-h-screen bg-teal-dark overflow-hidden flex items-center pt-16 lg:pt-20">
+
+  <!-- Geometric background pattern -->
+  <div class="hero-geo" aria-hidden="true">
+    <span class="geo-1"></span>
+    <span class="geo-2"></span>
+    <span class="geo-3"></span>
+    <span class="geo-4"></span>
+    <span class="geo-5"></span>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 max-w-screen-xl mx-auto w-full px-sizing-5 lg:px-sizing-10 py-sizing-10 lg:py-sizing-12 flex flex-col lg:flex-row items-center gap-sizing-10 lg:gap-sizing-12">
+
+    <!-- Left: headline + CTAs -->
+    <div class="flex-1 text-center lg:text-left">
+      <h1 class="text-white font-extrabold leading-tight tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-sizing-5">
+        Built Right.<br />Finished Better.
+      </h1>
+      <p class="text-teal font-medium text-base sm:text-lg lg:text-xl max-w-lg mx-auto lg:mx-0 mb-sizing-7 leading-relaxed">
+        Tays Fix and Finish delivers professional drywall, painting, and finish carpentry to homeowners across the Austin area. Precision craftsmanship, clean jobsites, and results that last.
+      </p>
+      <div class="flex flex-col xs:flex-row gap-sizing-4 justify-center lg:justify-start">
+        <a href="#contact"
+           class="inline-flex items-center justify-center px-sizing-7 py-sizing-4 bg-teal-bright text-black font-semibold rounded-full hover:bg-teal-med transition-colors text-base">
+          Get a Free Quote
+        </a>
+        <a href="#work"
+           class="inline-flex items-center justify-center px-sizing-7 py-sizing-4 border-2 border-teal-bright text-teal-bright font-semibold rounded-full hover:bg-teal-bright hover:text-black transition-colors text-base">
+          See Our Work
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: image (lg+) -->
+    <figure class="hidden lg:flex flex-shrink-0 w-[460px] xl:w-[540px]" aria-label="Sample interior finish work">
+      <img
+        src="https://placehold.co/800x500/1a1a1a/55c7cb?text=Interior+Finish+Work"
+        alt="Freshly finished interior space featuring smooth drywall, crisp crown molding, and a clean two-coat paint job"
+        class="w-full rounded-2xl object-cover shadow-2xl ring-1 ring-white/10"
+        style="aspect-ratio: 16/10;"
+        loading="eager"
+      />
+    </figure>
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     3. SERVICES
+     ================================================================ -->
+<section id="services" class="bg-white py-sizing-10 lg:py-sizing-12">
+  <div class="max-w-screen-xl mx-auto px-sizing-5 lg:px-sizing-10">
+
+    <!-- Section header (left-aligned) -->
+    <header class="mb-sizing-9">
+      <h2 class="text-black font-bold text-3xl lg:text-4xl mb-sizing-3">What We Do</h2>
+      <p class="text-gray-dark text-base lg:text-lg max-w-xl leading-relaxed">
+        From a fresh patch to a full-room transformation — we handle every stage of finish work with the same attention to detail.
+      </p>
+    </header>
+
+    <!-- 4-column grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-sizing-5">
+
+      <!-- Drywall -->
+      <article class="service-card bg-white border border-gray rounded-xl p-sizing-6 flex flex-col gap-sizing-4">
+        <div class="service-icon w-10 h-10" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M2 9h20M8 21l4-4 4 4"/>
+          </svg>
+        </div>
+        <h3 class="text-black font-semibold text-lg leading-snug">Drywall</h3>
+        <p class="text-gray-dark text-sm leading-relaxed">
+          From patching small holes to hanging new sheets after a renovation, we leave every wall smooth, seamless, and ready for paint.
+        </p>
+      </article>
+
+      <!-- Painting -->
+      <article class="service-card bg-white border border-gray rounded-xl p-sizing-6 flex flex-col gap-sizing-4">
+        <div class="service-icon w-10 h-10" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+            <path d="M18 3a3 3 0 0 0-3 3l-7 7-1 4 4-1 7-7a3 3 0 0 0 0-6z"/>
+            <path d="M3 21c1 0 3-1 3-3s-1-3-3-3"/>
+          </svg>
+        </div>
+        <h3 class="text-black font-semibold text-lg leading-snug">Painting</h3>
+        <p class="text-gray-dark text-sm leading-relaxed">
+          Clean prep, straight lines, and a finish that lasts. We handle rooms of any size with zero overspray and full cleanup included.
+        </p>
+      </article>
+
+      <!-- Finish Work -->
+      <article class="service-card bg-white border border-gray rounded-xl p-sizing-6 flex flex-col gap-sizing-4">
+        <div class="service-icon w-10 h-10" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+            <path d="M3 21h18"/>
+            <path d="M5 21V7l7-4 7 4v14"/>
+            <path d="M9 21v-9h6v9"/>
+          </svg>
+        </div>
+        <h3 class="text-black font-semibold text-lg leading-snug">Finish Work</h3>
+        <p class="text-gray-dark text-sm leading-relaxed">
+          Crown molding, baseboards, door casings — precision finish carpentry that transforms the look and feel of any room.
+        </p>
+      </article>
+
+      <!-- Handyman -->
+      <article class="service-card bg-white border border-gray rounded-xl p-sizing-6 flex flex-col gap-sizing-4">
+        <div class="service-icon w-10 h-10" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <h3 class="text-black font-semibold text-lg leading-snug">Handyman</h3>
+        <p class="text-gray-dark text-sm leading-relaxed">
+          Got a list of fixes that keeps getting pushed back? We tackle small repairs, installations, and odd jobs with the same care as big projects.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     4. RECENT WORK
+     ================================================================ -->
+<section id="work" class="bg-gray py-sizing-10 lg:py-sizing-12">
+  <div class="max-w-screen-xl mx-auto px-sizing-5 lg:px-sizing-10">
+
+    <!-- Section header (centered) -->
+    <header class="mb-sizing-9 text-center">
+      <h2 class="text-black font-bold text-3xl lg:text-4xl mb-sizing-3">Recent Work</h2>
+      <p class="text-gray-dark text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+        Every project is a chance to leave something better than we found it. Click any photo for a closer look.
+      </p>
+    </header>
+
+    <!-- Image grid: 2 col xs/sm → 3 col lg+ -->
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-sizing-4">
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="Drywall Repair &amp; Texture Match"
+              data-description="A built-in cabinet was removed and the wall fully patched, textured, and primed. The seam is virtually invisible."
+              data-src="https://placehold.co/800x600/2a4e51/fefefe?text=Drywall+Repair"
+              data-alt="Smooth drywall wall after patch and texture match in Austin home"
+              role="button" tabindex="0" aria-label="View Drywall Repair project">
+        <img src="https://placehold.co/800x600/2a4e51/fefefe?text=Drywall+Repair"
+             alt="Smooth drywall wall after patch and texture match"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">Drywall Repair &amp; Texture Match</h4>
+          <p class="text-teal text-xs mt-1">Austin, TX</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="Full-Room Interior Repaint"
+              data-description="Complete living room repaint including walls, ceiling, and baseboards. Two coats of premium eggshell finish with full furniture protection and cleanup."
+              data-src="https://placehold.co/800x600/5f9798/fefefe?text=Interior+Repaint"
+              data-alt="Living room after fresh two-coat eggshell repaint"
+              role="button" tabindex="0" aria-label="View Full-Room Interior Repaint project">
+        <img src="https://placehold.co/800x600/5f9798/fefefe?text=Interior+Repaint"
+             alt="Living room after fresh two-coat eggshell repaint"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">Full-Room Interior Repaint</h4>
+          <p class="text-teal text-xs mt-1">Round Rock, TX</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="Crown Molding Installation"
+              data-description="Custom crown molding installed in the dining room and hallway. Mitered corners, fully caulked, and painted to match existing trim throughout."
+              data-src="https://placehold.co/800x600/b7d7d8/2a4e51?text=Crown+Molding"
+              data-alt="Dining room corner with freshly installed and painted crown molding"
+              role="button" tabindex="0" aria-label="View Crown Molding Installation project">
+        <img src="https://placehold.co/800x600/b7d7d8/2a4e51?text=Crown+Molding"
+             alt="Dining room corner with freshly installed and painted crown molding"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">Crown Molding Installation</h4>
+          <p class="text-teal text-xs mt-1">Cedar Park, TX</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="New Construction Drywall Hang"
+              data-description="Full hang-and-finish for a new construction bonus room. Level 5 smooth finish ready for paint — no texture, no flaws."
+              data-src="https://placehold.co/800x600/1a1a1a/55c7cb?text=New+Construction"
+              data-alt="New construction bonus room with Level 5 drywall finish"
+              role="button" tabindex="0" aria-label="View New Construction Drywall project">
+        <img src="https://placehold.co/800x600/1a1a1a/55c7cb?text=New+Construction"
+             alt="New construction bonus room with Level 5 drywall finish"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">New Construction Drywall Hang</h4>
+          <p class="text-teal text-xs mt-1">Georgetown, TX</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="Exterior Trim &amp; Fascia Repaint"
+              data-description="Scraped, primed, and repainted all exterior fascia boards and door trim in alkyd enamel for maximum durability and a crisp, lasting finish."
+              data-src="https://placehold.co/800x600/546162/fefefe?text=Exterior+Trim"
+              data-alt="Freshly painted exterior fascia boards and door trim"
+              role="button" tabindex="0" aria-label="View Exterior Trim project">
+        <img src="https://placehold.co/800x600/546162/fefefe?text=Exterior+Trim"
+             alt="Freshly painted exterior fascia boards and door trim"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">Exterior Trim &amp; Fascia Repaint</h4>
+          <p class="text-teal text-xs mt-1">Pflugerville, TX</p>
+        </figcaption>
+      </figure>
+
+      <figure class="work-item rounded-xl overflow-hidden relative bg-black"
+              data-title="Shiplap Accent Wall &amp; Baseboard Refresh"
+              data-description="Installed a shiplap accent wall in the main hallway and replaced worn baseboards throughout. Clean, modern finish that updated the whole space."
+              data-src="https://placehold.co/800x600/55c7cb/1a1a1a?text=Accent+Wall"
+              data-alt="Hallway with shiplap accent wall and freshly replaced baseboards"
+              role="button" tabindex="0" aria-label="View Accent Wall project">
+        <img src="https://placehold.co/800x600/55c7cb/1a1a1a?text=Accent+Wall"
+             alt="Hallway with shiplap accent wall and freshly replaced baseboards"
+             class="w-full object-cover aspect-[4/3]" loading="lazy" />
+        <figcaption class="work-overlay absolute inset-0 bg-black/60 flex flex-col justify-end p-sizing-4">
+          <h4 class="text-white font-semibold text-sm lg:text-base">Shiplap Accent Wall &amp; Baseboard Refresh</h4>
+          <p class="text-teal text-xs mt-1">Leander, TX</p>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================
+     5. TESTIMONIALS
+     ================================================================ -->
+<section id="testimonials" class="bg-teal-dark py-sizing-10 lg:py-sizing-12">
+  <div class="max-w-screen-xl mx-auto px-sizing-5 lg:px-sizing-10">
+
+    <!-- Section header (centered) -->
+    <header class="mb-sizing-9 text-center">
+      <h2 class="text-white font-bold text-3xl lg:text-4xl mb-sizing-3">What Clients Say</h2>
+      <p class="text-teal text-base lg:text-lg max-w-xl mx-auto leading-relaxed">
+        Don't take our word for it. Here's what homeowners across Austin have to say.
+      </p>
+    </header>
+
+    <!-- Carousel wrapper -->
+    <div id="testimonials-carousel" class="relative select-none" aria-label="Customer testimonials">
+
+      <!-- Slides container -->
+      <div class="relative overflow-hidden" style="min-height: 280px;">
+
+        <!-- Slide 1 -->
+        <div class="testimonial-slide absolute inset-0 flex items-center justify-center px-sizing-8 lg:px-sizing-12 opacity-100"
+             role="group" aria-roledescription="slide" aria-label="Testimonial 1 of 4">
+          <blockquote class="text-center max-w-3xl mx-auto w-full">
+            <span class="block text-teal-bright font-extrabold text-7xl leading-none mb-sizing-3" aria-hidden="true">"</span>
+            <p class="text-white text-lg lg:text-xl font-medium leading-relaxed mb-sizing-6">
+              Zachary did an incredible job patching our walls after we removed a built-in. You literally cannot tell anything was ever there.
+            </p>
+            <footer class="flex flex-col items-center gap-sizing-1">
+              <cite class="text-teal-bright font-semibold not-italic text-base">Sarah M.</cite>
+              <span class="text-gray-med text-sm">Austin, TX</span>
+              <span class="text-teal-bright text-lg tracking-widest mt-1" aria-label="5 out of 5 stars">★★★★★</span>
+            </footer>
+          </blockquote>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="testimonial-slide absolute inset-0 flex items-center justify-center px-sizing-8 lg:px-sizing-12 opacity-0 pointer-events-none"
+             role="group" aria-roledescription="slide" aria-label="Testimonial 2 of 4">
+          <blockquote class="text-center max-w-3xl mx-auto w-full">
+            <span class="block text-teal-bright font-extrabold text-7xl leading-none mb-sizing-3" aria-hidden="true">"</span>
+            <p class="text-white text-lg lg:text-xl font-medium leading-relaxed mb-sizing-6">
+              Had our entire downstairs repainted and it looks amazing. Professional, on time, and the cleanup was spotless.
+            </p>
+            <footer class="flex flex-col items-center gap-sizing-1">
+              <cite class="text-teal-bright font-semibold not-italic text-base">Mike R.</cite>
+              <span class="text-gray-med text-sm">Round Rock, TX</span>
+              <span class="text-teal-bright text-lg tracking-widest mt-1" aria-label="5 out of 5 stars">★★★★★</span>
+            </footer>
+          </blockquote>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="testimonial-slide absolute inset-0 flex items-center justify-center px-sizing-8 lg:px-sizing-12 opacity-0 pointer-events-none"
+             role="group" aria-roledescription="slide" aria-label="Testimonial 3 of 4">
+          <blockquote class="text-center max-w-3xl mx-auto w-full">
+            <span class="block text-teal-bright font-extrabold text-7xl leading-none mb-sizing-3" aria-hidden="true">"</span>
+            <p class="text-white text-lg lg:text-xl font-medium leading-relaxed mb-sizing-6">
+              The crown molding he installed in our dining room completely transformed the space. It looks like a custom home now.
+            </p>
+            <footer class="flex flex-col items-center gap-sizing-1">
+              <cite class="text-teal-bright font-semibold not-italic text-base">Jennifer L.</cite>
+              <span class="text-gray-med text-sm">Cedar Park, TX</span>
+              <span class="text-teal-bright text-lg tracking-widest mt-1" aria-label="5 out of 5 stars">★★★★★</span>
+            </footer>
+          </blockquote>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="testimonial-slide absolute inset-0 flex items-center justify-center px-sizing-8 lg:px-sizing-12 opacity-0 pointer-events-none"
+             role="group" aria-roledescription="slide" aria-label="Testimonial 4 of 4">
+          <blockquote class="text-center max-w-3xl mx-auto w-full">
+            <span class="block text-teal-bright font-extrabold text-7xl leading-none mb-sizing-3" aria-hidden="true">"</span>
+            <p class="text-white text-lg lg:text-xl font-medium leading-relaxed mb-sizing-6">
+              Quick response, fair quote, quality work. Exactly what you want from a contractor.
+            </p>
+            <footer class="flex flex-col items-center gap-sizing-1">
+              <cite class="text-teal-bright font-semibold not-italic text-base">David K.</cite>
+              <span class="text-gray-med text-sm">Austin, TX</span>
+              <span class="text-teal-bright text-lg tracking-widest mt-1" aria-label="5 out of 5 stars">★★★★★</span>
+            </footer>
+          </blockquote>
+        </div>
+
+      </div><!-- /slides container -->
+
+      <!-- Arrow: Prev -->
+      <button id="carousel-prev"
+              class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full border border-teal-med/50 text-teal hover:border-teal-bright hover:text-teal-bright transition-colors"
+              aria-label="Previous testimonial">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <!-- Arrow: Next -->
+      <button id="carousel-next"
+              class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full border border-teal-med/50 text-teal hover:border-teal-bright hover:text-teal-bright transition-colors"
+              aria-label="Next testimonial">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Dot indicators -->
+      <div class="flex justify-center gap-sizing-2 mt-sizing-8" role="tablist" aria-label="Go to testimonial slide">
+        <button class="carousel-dot active" role="tab" aria-selected="true"  aria-label="Slide 1" data-slide="0"></button>
+        <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Slide 2" data-slide="1"></button>
+        <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Slide 3" data-slide="2"></button>
+        <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Slide 4" data-slide="3"></button>
+      </div>
+
+    </div><!-- /carousel wrapper -->
+  </div>
+</section>
+
+
+<!-- ================================================================
+     6. GET IN TOUCH
+     ================================================================ -->
+<section id="contact" class="bg-white overflow-hidden">
+  <div class="lg:grid lg:grid-cols-2" style="min-height: 760px;">
+
+    <!-- Left: full-height image -->
+    <figure class="hidden lg:block relative overflow-hidden" aria-label="Tays Fix and Finish job site">
+      <img
+        src="https://placehold.co/800x1000/2a4e51/b7d7d8?text=Professional+Craftwork"
+        alt="Professional contractor applying a smooth finish to freshly hung drywall"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+    </figure>
+
+    <!-- Right: contact form -->
+    <div class="px-sizing-5 py-sizing-10 lg:px-sizing-10 xl:px-sizing-12 flex flex-col justify-center">
+
+      <header class="mb-sizing-7">
+        <h2 class="text-black font-bold text-3xl lg:text-4xl mb-sizing-3">Get in Touch</h2>
+        <p class="text-gray-dark text-base leading-relaxed">
+          Ready to get started? Fill out the form and we'll be in touch within one business day.
+        </p>
+      </header>
+
+      <form id="contact-form" novalidate class="flex flex-col gap-sizing-5">
+
+        <!-- Contact info -->
+        <fieldset class="flex flex-col gap-sizing-4 border-0 p-0 m-0">
+          <legend class="text-black font-semibold text-base mb-sizing-1">Your Info</legend>
+
+          <div class="flex flex-col gap-sizing-1">
+            <label for="name" class="text-gray-dark text-sm font-medium">
+              Full Name <span class="text-teal-bright" aria-hidden="true">*</span>
+            </label>
+            <input type="text" id="name" name="name" required autocomplete="name"
+                   placeholder="Jane Smith"
+                   class="w-full rounded-lg border border-gray-med px-sizing-4 py-sizing-3 text-sm text-black placeholder-gray-med transition-colors focus:border-teal-bright focus:ring-1 focus:ring-teal-bright focus:outline-none" />
+          </div>
+
+          <div class="flex flex-col gap-sizing-1">
+            <label for="email" class="text-gray-dark text-sm font-medium">
+              Email Address <span class="text-teal-bright" aria-hidden="true">*</span>
+            </label>
+            <input type="email" id="email" name="email" required autocomplete="email"
+                   placeholder="jane@example.com"
+                   class="w-full rounded-lg border border-gray-med px-sizing-4 py-sizing-3 text-sm text-black placeholder-gray-med transition-colors focus:border-teal-bright focus:ring-1 focus:ring-teal-bright focus:outline-none" />
+          </div>
+
+          <div class="flex flex-col gap-sizing-1">
+            <label for="phone" class="text-gray-dark text-sm font-medium">Phone Number</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel"
+                   placeholder="(512) 555-0123"
+                   class="w-full rounded-lg border border-gray-med px-sizing-4 py-sizing-3 text-sm text-black placeholder-gray-med transition-colors focus:border-teal-bright focus:ring-1 focus:ring-teal-bright focus:outline-none" />
+          </div>
+        </fieldset>
+
+        <!-- Project details -->
+        <fieldset class="flex flex-col gap-sizing-4 border-0 p-0 m-0">
+          <legend class="text-black font-semibold text-base mb-sizing-1">Project Details</legend>
+
+          <div class="flex flex-col gap-sizing-1">
+            <label for="service" class="text-gray-dark text-sm font-medium">
+              Service Type <span class="text-teal-bright" aria-hidden="true">*</span>
+            </label>
+            <div class="relative">
+              <select id="service" name="service" required
+                      class="w-full rounded-lg border border-gray-med px-sizing-4 py-sizing-3 text-sm text-black bg-white appearance-none transition-colors focus:border-teal-bright focus:ring-1 focus:ring-teal-bright focus:outline-none pr-10">
+                <option value="" disabled selected>Select a service…</option>
+                <option value="drywall">Drywall</option>
+                <option value="painting">Painting</option>
+                <option value="finish-work">Finish Work</option>
+                <option value="handyman">Handyman</option>
+                <option value="other">Other</option>
+              </select>
+              <!-- Chevron icon -->
+              <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center" aria-hidden="true">
+                <svg class="w-4 h-4 text-gray-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-sizing-1">
+            <label for="description" class="text-gray-dark text-sm font-medium">
+              Project Description <span class="text-teal-bright" aria-hidden="true">*</span>
+            </label>
+            <textarea id="description" name="description" required rows="4"
+                      placeholder="Tell us about your project — what needs to be done, the size of the space, and any specific concerns."
+                      class="w-full rounded-lg border border-gray-med px-sizing-4 py-sizing-3 text-sm text-black placeholder-gray-med transition-colors focus:border-teal-bright focus:ring-1 focus:ring-teal-bright focus:outline-none resize-y min-h-[100px]"></textarea>
+          </div>
+
+          <!-- File upload -->
+          <div class="flex flex-col gap-sizing-2">
+            <span class="text-gray-dark text-sm font-medium">
+              Photos or Documents
+              <span class="text-gray-med font-normal">(optional — images &amp; PDFs)</span>
+            </span>
+
+            <div id="dropzone"
+                 class="dropzone rounded-xl border-2 border-dashed border-gray-med px-sizing-6 py-sizing-8 text-center cursor-pointer hover:border-teal-med"
+                 role="button" tabindex="0" aria-label="Click to upload files or drag and drop here">
+              <input type="file" id="file-input" class="sr-only" multiple accept="image/*,.pdf" tabindex="-1" />
+              <div class="flex flex-col items-center gap-sizing-2 text-gray-med pointer-events-none">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M7 16a4 4 0 0 1-.88-7.903A5 5 0 1 1 15.9 6L16 6a5 5 0 0 1 1 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+                <p class="text-sm font-medium text-gray-dark">Click to browse or drag files here</p>
+                <p class="text-xs">Accepts JPG, PNG, PDF</p>
+              </div>
+            </div>
+
+            <!-- File list -->
+            <ul id="file-list" class="flex flex-col gap-sizing-1" aria-live="polite" aria-label="Uploaded files"></ul>
+          </div>
+
+        </fieldset>
+
+        <!-- Submit -->
+        <div class="flex justify-end pt-sizing-2">
+          <button type="submit"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-sizing-2 px-sizing-8 py-sizing-4 bg-teal-bright text-black font-semibold rounded-full hover:bg-teal-med transition-colors">
+            Send Message
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          </button>
+        </div>
+
+      </form>
+    </div><!-- /form column -->
+
+  </div>
+</section>
+
+
+<!-- ================================================================
+     7. FOOTER
+     ================================================================ -->
+<footer class="bg-teal-dark py-sizing-8">
+  <div class="max-w-screen-xl mx-auto px-sizing-5 lg:px-sizing-10 flex flex-col sm:flex-row items-center justify-between gap-sizing-4">
+    <span class="text-white font-extrabold text-lg tracking-tight">Tays Fix &amp; Finish</span>
+    <p class="text-gray-med text-sm text-center sm:text-right">
+      &copy; <span id="copyright-year"></span> Tays Fix and Finish. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+
+<!-- ================================================================
+     LIGHTBOX MODAL
+     ================================================================ -->
+<div id="lightbox"
+     class="fixed inset-0 z-50 items-center justify-center p-sizing-4 lg:p-sizing-8"
+     style="display: none;"
+     role="dialog" aria-modal="true" aria-labelledby="lightbox-title-el">
+
+  <div id="lightbox-inner"
+       class="relative max-w-4xl w-full bg-black rounded-2xl overflow-hidden shadow-2xl">
+
+    <!-- Close button -->
+    <button id="lightbox-close"
+            class="absolute top-sizing-3 right-sizing-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/70 text-white hover:bg-teal-med transition-colors"
+            aria-label="Close lightbox">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Full-size image -->
+    <img id="lightbox-img" src="" alt="" class="w-full object-cover max-h-[65vh]" />
+
+    <!-- Caption -->
+    <div class="px-sizing-6 py-sizing-5">
+      <h3 id="lightbox-title-el" class="text-white font-bold text-xl mb-sizing-1"></h3>
+      <p id="lightbox-desc" class="text-gray-med text-sm leading-relaxed"></p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================================================================
+     SCRIPTS — All vanilla JS
+     ================================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Copyright year ── */
+  document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+
+  /* ── Mobile nav toggle ── */
+  const navbar     = document.getElementById('navbar');
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamOpen    = document.getElementById('ham-open');
+  const hamClose   = document.getElementById('ham-close');
+
+  function openMobileMenu() {
+    mobileMenu.classList.remove('hidden');
+    hamOpen.classList.add('hidden');
+    hamClose.classList.remove('hidden');
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.add('hidden');
+    hamOpen.classList.remove('hidden');
+    hamClose.classList.add('hidden');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  hamburger.addEventListener('click', function () {
+    mobileMenu.classList.contains('hidden') ? openMobileMenu() : closeMobileMenu();
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(function (link) {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+
+  /* ── Scroll: nav background ── */
+  window.addEventListener('scroll', function () {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+
+  /* ── Testimonial carousel ── */
+  var slides       = Array.from(document.querySelectorAll('.testimonial-slide'));
+  var dots         = Array.from(document.querySelectorAll('.carousel-dot'));
+  var currentIndex = 0;
+  var autoTimer    = null;
+  var paused       = false;
+
+  function goTo(idx) {
+    var next = (idx + slides.length) % slides.length;
+
+    // Hide current
+    slides[currentIndex].classList.remove('opacity-100');
+    slides[currentIndex].classList.add('opacity-0', 'pointer-events-none');
+    dots[currentIndex].classList.remove('active');
+    dots[currentIndex].setAttribute('aria-selected', 'false');
+
+    // Show next
+    currentIndex = next;
+    slides[currentIndex].classList.add('opacity-100');
+    slides[currentIndex].classList.remove('opacity-0', 'pointer-events-none');
+    dots[currentIndex].classList.add('active');
+    dots[currentIndex].setAttribute('aria-selected', 'true');
+  }
+
+  function resetTimer() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function () {
+      if (!paused) goTo(currentIndex + 1);
+    }, 4000);
+  }
+
+  var carouselEl = document.getElementById('testimonials-carousel');
+  carouselEl.addEventListener('mouseenter', function () { paused = true; });
+  carouselEl.addEventListener('mouseleave', function () { paused = false; });
+
+  document.getElementById('carousel-prev').addEventListener('click', function () {
+    goTo(currentIndex - 1);
+    resetTimer();
+  });
+
+  document.getElementById('carousel-next').addEventListener('click', function () {
+    goTo(currentIndex + 1);
+    resetTimer();
+  });
+
+  dots.forEach(function (dot) {
+    dot.addEventListener('click', function () {
+      goTo(parseInt(dot.dataset.slide, 10));
+      resetTimer();
+    });
+  });
+
+  resetTimer(); // start autoplay
+
+
+  /* ── Work grid lightbox ── */
+  var lightbox      = document.getElementById('lightbox');
+  var lightboxInner = document.getElementById('lightbox-inner');
+  var lightboxImg   = document.getElementById('lightbox-img');
+  var lightboxTitle = document.getElementById('lightbox-title-el');
+  var lightboxDesc  = document.getElementById('lightbox-desc');
+  var previousFocus = null;
+
+  function openLightbox(src, alt, title, description) {
+    previousFocus = document.activeElement;
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightboxTitle.textContent = title;
+    lightboxDesc.textContent  = description;
+    lightbox.style.display    = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lightbox-close').focus();
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+    if (previousFocus) previousFocus.focus();
+  }
+
+  document.querySelectorAll('.work-item').forEach(function (item) {
+    function trigger() {
+      openLightbox(
+        item.dataset.src,
+        item.dataset.alt,
+        item.dataset.title,
+        item.dataset.description
+      );
+    }
+    item.addEventListener('click', trigger);
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger(); }
+    });
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lightbox.style.display !== 'none') closeLightbox();
+  });
+
+
+  /* ── File upload UI ── */
+  var dropzone   = document.getElementById('dropzone');
+  var fileInput  = document.getElementById('file-input');
+  var fileListEl = document.getElementById('file-list');
+  var uploadedFiles = [];
+
+  dropzone.addEventListener('click', function (e) {
+    if (e.target !== fileInput) fileInput.click();
+  });
+
+  dropzone.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+
+  dropzone.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    dropzone.classList.add('drag-over');
+  });
+
+  dropzone.addEventListener('dragleave', function (e) {
+    if (!dropzone.contains(e.relatedTarget)) {
+      dropzone.classList.remove('drag-over');
+    }
+  });
+
+  dropzone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    dropzone.classList.remove('drag-over');
+    addFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', function () {
+    addFiles(fileInput.files);
+    fileInput.value = '';
+  });
+
+  function addFiles(files) {
+    Array.from(files).forEach(function (file) {
+      var isDupe = uploadedFiles.some(function (f) {
+        return f.name === file.name && f.size === file.size;
+      });
+      if (!isDupe) uploadedFiles.push(file);
+    });
+    renderFileList();
+  }
+
+  function formatBytes(bytes) {
+    if (bytes < 1024)        return bytes + ' B';
+    if (bytes < 1048576)     return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderFileList() {
+    fileListEl.innerHTML = '';
+    uploadedFiles.forEach(function (file, idx) {
+      var li = document.createElement('li');
+      li.className = 'flex items-center justify-between py-sizing-2 px-sizing-3 bg-gray rounded-lg';
+      li.innerHTML =
+        '<div class="flex items-center gap-sizing-2 min-w-0">' +
+          '<svg class="w-4 h-4 flex-shrink-0 text-teal-med" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>' +
+          '</svg>' +
+          '<span class="text-sm text-black truncate max-w-[160px] sm:max-w-[260px]">' + escapeHTML(file.name) + '</span>' +
+          '<span class="text-xs text-gray-med flex-shrink-0">' + formatBytes(file.size) + '</span>' +
+        '</div>' +
+        '<button type="button" class="flex-shrink-0 ml-sizing-3 p-1 text-gray-med hover:text-red-500 rounded transition-colors" ' +
+                'aria-label="Remove ' + escapeHTML(file.name) + '" data-remove="' + idx + '">' +
+          '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+          '</svg>' +
+        '</button>';
+      fileListEl.appendChild(li);
+    });
+  }
+
+  fileListEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-remove]');
+    if (btn) {
+      uploadedFiles.splice(parseInt(btn.dataset.remove, 10), 1);
+      renderFileList();
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
