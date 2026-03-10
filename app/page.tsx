@@ -289,8 +289,8 @@ export default function Home() {
         padding: "0 2rem",
       }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <img src="/TaysFixandFinish_Logo.png" alt="Tays Fix and Finish" style={{ height: 44, width: "auto" }} />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img src="/TFF-logo-horizontal-black.png" alt="Tays Fix and Finish" style={{ height: 44, width: "auto" }} />
           </div>
 
           <nav className="desktop-only" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
@@ -317,7 +317,7 @@ export default function Home() {
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <img src="/TaysFixandFinish_Logo.png" alt="Tays Fix and Finish" style={{ height: 40 }} />
+            <img src="/TFF-logo-horizontal-black.png" alt="Tays Fix and Finish" style={{ height: 40 }} />
             <button onClick={() => setMobileMenuOpen(false)}
               style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer" }}>✕</button>
           </div>
@@ -747,7 +747,7 @@ export default function Home() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <img src="/TaysFixandFinish_Logo.png" alt="Tays Fix and Finish" style={{ height: 40, filter: "brightness(0) invert(1)" }} />
+              <img src="/TFF-logo-horizontal-white.png" alt="Tays Fix and Finish" style={{ height: 40 }} />
             </div>
             <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
               {["services", "work", "testimonials", "contact"].map(id => (
