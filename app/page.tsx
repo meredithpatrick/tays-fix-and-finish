@@ -370,7 +370,7 @@ export default function Home() {
             <div>
               <div style={{ display: "inline-block", background: "rgba(255,255,255,0.12)", borderRadius: 100, padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
                 <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--teal-bright)" }}>
-                  Austin, TX — Serving the Greater Area
+                  Springboro, OH — Serving the Greater Dayton Area
                 </span>
               </div>
               <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 1.1, color: "white", marginBottom: "1.5rem" }}>
@@ -568,7 +568,7 @@ export default function Home() {
                 {[
                   { icon: "📞", label: "Phone / Text", value: "(512) 956-6541", href: "tel:5129566541" },
                   { icon: "✉️", label: "Email", value: "zach.tays@gmail.com", href: "mailto:zach.tays@gmail.com" },
-                  { icon: "📍", label: "Service Area", value: "Austin & Greater Area, TX" },
+                  { icon: "📍", label: "Service Area", value: "Springboro, OH & Greater Dayton Area" },
                 ].map(({ icon, label, value, href }) => (
                   <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                     <div style={{
