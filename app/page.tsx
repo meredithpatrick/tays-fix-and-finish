@@ -108,22 +108,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "'Inter', sans-serif", background: "#fefefe" }}>
-      {/* Google Fonts */}
+    <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--colors-white)" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        :root {
-          --teal-dark: #2a4e51;
-          --teal-med: #5f9798;
-          --teal-bright: #55c7cb;
-          --teal: #b7d7d8;
-          --black: #1a1a1a;
-          --white: #fefefe;
-          --gray: #f4f4f4;
-          --gray-dark: #546162;
-          --gray-med: #acacac;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -131,20 +118,20 @@ export default function Home() {
         .nav-link {
           font-size: 0.875rem;
           font-weight: 500;
-          color: var(--gray-dark);
+          color: var(--colors-gray-dark);
           text-decoration: none;
           letter-spacing: 0.05em;
           text-transform: uppercase;
           transition: color 0.2s;
           cursor: pointer;
         }
-        .nav-link:hover { color: var(--teal-med); }
+        .nav-link:hover { color: var(--colors-teal-med); }
 
         .btn-primary {
-          background: var(--teal-dark);
+          background: var(--colors-teal-dark);
           color: white;
           padding: 0.75rem 1.75rem;
-          border-radius: 4px;
+          border-radius: var(--radius-sm);
           font-weight: 600;
           font-size: 0.875rem;
           letter-spacing: 0.05em;
@@ -155,38 +142,38 @@ export default function Home() {
           text-decoration: none;
           display: inline-block;
         }
-        .btn-primary:hover { background: var(--teal-med); transform: translateY(-1px); }
+        .btn-primary:hover { background: var(--colors-teal-med); transform: translateY(-1px); }
 
         .btn-outline {
           background: transparent;
-          color: var(--teal-dark);
+          color: var(--colors-teal-dark);
           padding: 0.75rem 1.75rem;
-          border-radius: 4px;
+          border-radius: var(--radius-sm);
           font-weight: 600;
           font-size: 0.875rem;
           letter-spacing: 0.05em;
           text-transform: uppercase;
-          border: 2px solid var(--teal-dark);
+          border: 2px solid var(--colors-teal-dark);
           cursor: pointer;
           transition: all 0.2s;
           text-decoration: none;
           display: inline-block;
         }
-        .btn-outline:hover { background: var(--teal-dark); color: white; }
+        .btn-outline:hover { background: var(--colors-teal-dark); color: white; }
 
         .section-tag {
           font-size: 0.75rem;
           font-weight: 700;
           letter-spacing: 0.15em;
           text-transform: uppercase;
-          color: var(--teal-med);
+          color: var(--colors-teal-med);
           margin-bottom: 0.75rem;
         }
 
         .section-title {
           font-size: clamp(1.75rem, 4vw, 2.75rem);
           font-weight: 700;
-          color: var(--black);
+          color: var(--colors-black);
           line-height: 1.15;
         }
 
@@ -202,7 +189,7 @@ export default function Home() {
           width: 100%;
           aspect-ratio: 4/3;
           object-fit: cover;
-          background: var(--teal);
+          background: var(--colors-teal);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -211,21 +198,21 @@ export default function Home() {
 
         .filter-btn {
           padding: 0.4rem 1rem;
-          border-radius: 100px;
+          border-radius: var(--radius-full);
           font-size: 0.8rem;
           font-weight: 600;
           letter-spacing: 0.05em;
           text-transform: uppercase;
-          border: 1.5px solid var(--teal-med);
+          border: 1.5px solid var(--colors-teal-med);
           cursor: pointer;
           transition: all 0.2s;
           background: transparent;
-          color: var(--teal-dark);
+          color: var(--colors-teal-dark);
         }
         .filter-btn.active {
-          background: var(--teal-dark);
+          background: var(--colors-teal-dark);
           color: white;
-          border-color: var(--teal-dark);
+          border-color: var(--colors-teal-dark);
         }
 
         .star { color: #f59e0b; font-size: 1rem; }
@@ -234,13 +221,13 @@ export default function Home() {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: var(--teal);
+          background: var(--colors-teal);
           border: none;
           cursor: pointer;
           transition: background 0.2s, transform 0.2s;
         }
         .testimonial-dot.active {
-          background: var(--teal-dark);
+          background: var(--colors-teal-dark);
           transform: scale(1.3);
         }
 
@@ -248,19 +235,19 @@ export default function Home() {
           width: 100%;
           padding: 0.75rem 1rem;
           border: 1.5px solid #e0e0e0;
-          border-radius: 6px;
+          border-radius: var(--radius-md);
           font-size: 0.9375rem;
-          color: var(--black);
+          color: var(--colors-black);
           background: white;
           transition: border-color 0.2s;
           outline: none;
         }
-        .form-input:focus { border-color: var(--teal-med); }
+        .form-input:focus { border-color: var(--colors-teal-med); }
 
         .form-label {
           font-size: 0.875rem;
           font-weight: 600;
-          color: var(--gray-dark);
+          color: var(--colors-gray-dark);
           margin-bottom: 0.35rem;
           display: block;
         }
@@ -279,7 +266,7 @@ export default function Home() {
         .divider {
           width: 48px;
           height: 3px;
-          background: var(--teal-med);
+          background: var(--colors-teal-med);
           border-radius: 2px;
           margin: 1rem 0 1.5rem;
         }
@@ -295,19 +282,17 @@ export default function Home() {
       {/* NAV */}
       <header style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? "rgba(254,254,254,0.97)" : "transparent",
+        background: scrolled ? "rgba(254,254,254,0.97)" : "rgba(254,254,254,0.95)",
         backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
+        borderBottom: "1px solid rgba(0,0,0,0.06)",
         transition: "all 0.3s",
         padding: "0 2rem",
       }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-          {/* Logo */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <img src="/TaysFixandFinish_Logo.png" alt="Tays Fix and Finish" style={{ height: 44, width: "auto" }} />
           </div>
 
-          {/* Desktop Nav */}
           <nav className="desktop-only" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
             {["services", "work", "testimonials", "contact"].map((id) => (
               <span key={id} className="nav-link" onClick={() => scrollTo(id)}>
@@ -315,15 +300,14 @@ export default function Home() {
               </span>
             ))}
             <button className="btn-primary" onClick={() => scrollTo("contact")} style={{ padding: "0.6rem 1.25rem" }}>
-              Get a Quote
+              Get in touch
             </button>
           </nav>
 
-          {/* Mobile Hamburger */}
           <button className="mobile-only" onClick={() => setMobileMenuOpen(true)}
             style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-              {[0,1,2].map(i => <div key={i} style={{ width: 24, height: 2, background: "var(--black)" }} />)}
+              {[0, 1, 2].map(i => <div key={i} style={{ width: 24, height: 2, background: "var(--colors-black)" }} />)}
             </div>
           </button>
         </div>
@@ -340,13 +324,13 @@ export default function Home() {
           <nav style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {["services", "work", "testimonials", "contact"].map((id) => (
               <span key={id} onClick={() => scrollTo(id)}
-                style={{ fontSize: "1.25rem", fontWeight: 600, cursor: "pointer", color: "var(--black)" }}>
+                style={{ fontSize: "1.25rem", fontWeight: 600, cursor: "pointer", color: "var(--colors-black)" }}>
                 {id === "work" ? "Our Work" : id.charAt(0).toUpperCase() + id.slice(1)}
               </span>
             ))}
           </nav>
           <button className="btn-primary" onClick={() => scrollTo("contact")} style={{ width: "100%", textAlign: "center", padding: "1rem" }}>
-            Get a Free Quote
+            Get in touch
           </button>
         </div>
       )}
@@ -354,96 +338,159 @@ export default function Home() {
       {/* HERO */}
       <section style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, var(--teal-dark) 0%, #1d3a3d 40%, var(--teal-med) 100%)",
-        display: "flex", alignItems: "center",
-        position: "relative", overflow: "hidden",
+        background: "var(--colors-white)",
+        display: "flex",
+        alignItems: "center",
+        position: "relative",
+        overflow: "hidden",
         paddingTop: 72,
       }}>
-        {/* Background texture */}
-        <div style={{
-          position: "absolute", inset: 0,
-          backgroundImage: "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.04) 0%, transparent 60%), radial-gradient(circle at 20% 80%, rgba(85,199,203,0.15) 0%, transparent 50%)",
-        }} />
+        {/* Teal geometric accent shapes — top-right corner */}
+        <div style={{ position: "absolute", top: 0, right: 0, width: "52%", height: "100%", pointerEvents: "none" }}>
+          {/* Back layer — large light teal */}
+          <div style={{
+            position: "absolute", top: "-8%", right: "18%",
+            width: 260, height: 520,
+            background: "var(--colors-teal)",
+            transform: "rotate(14deg)",
+            borderRadius: 2,
+            opacity: 0.9,
+          }} />
+          {/* Dark tall rectangle */}
+          <div style={{
+            position: "absolute", top: "-12%", right: "-4%",
+            width: 200, height: 680,
+            background: "var(--colors-teal-dark)",
+            transform: "rotate(-7deg)",
+            borderRadius: 2,
+          }} />
+          {/* Medium teal mid-layer */}
+          <div style={{
+            position: "absolute", top: "22%", right: "32%",
+            width: 160, height: 320,
+            background: "var(--colors-teal-med)",
+            transform: "rotate(22deg)",
+            borderRadius: 2,
+            opacity: 0.75,
+          }} />
+          {/* Bright teal accent */}
+          <div style={{
+            position: "absolute", top: "8%", right: "8%",
+            width: 130, height: 280,
+            background: "var(--colors-teal-bright)",
+            transform: "rotate(-14deg)",
+            borderRadius: 2,
+            opacity: 0.6,
+          }} />
+          {/* Small dark square top-right */}
+          <div style={{
+            position: "absolute", top: "-18%", right: "38%",
+            width: 120, height: 240,
+            background: "var(--colors-teal-dark)",
+            transform: "rotate(30deg)",
+            borderRadius: 2,
+            opacity: 0.35,
+          }} />
+          {/* Soft teal lower fill */}
+          <div style={{
+            position: "absolute", top: "48%", right: "-2%",
+            width: 240, height: 400,
+            background: "var(--colors-teal)",
+            transform: "rotate(10deg)",
+            borderRadius: 2,
+            opacity: 0.5,
+          }} />
+          {/* Bright accent lower */}
+          <div style={{
+            position: "absolute", top: "55%", right: "20%",
+            width: 100, height: 220,
+            background: "var(--colors-teal-bright)",
+            transform: "rotate(-20deg)",
+            borderRadius: 2,
+            opacity: 0.45,
+          }} />
+        </div>
+
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "4rem 2rem", position: "relative", zIndex: 1, width: "100%" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
-            {/* Left */}
-            <div>
-              <div style={{ display: "inline-block", background: "rgba(255,255,255,0.12)", borderRadius: 100, padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
-                <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--teal-bright)" }}>
-                  Austin, TX — Serving the Greater Area
-                </span>
-              </div>
-              <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 1.1, color: "white", marginBottom: "1.5rem" }}>
-                Quality Work.<br />
-                <span style={{ color: "var(--teal-bright)" }}>Clean Finish.</span><br />
-                Every Time.
-              </h1>
-              <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.7, marginBottom: "2.5rem", maxWidth: 480 }}>
-                Zachary Tays brings craftsmanship and reliability to every job — from drywall and painting to finish carpentry and handyman work. No shortcuts. No excuses.
-              </p>
-              <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-                <button className="btn-primary" onClick={() => scrollTo("contact")}
-                  style={{ background: "var(--teal-bright)", color: "var(--teal-dark)", fontSize: "1rem", padding: "0.875rem 2rem" }}>
-                  Get a Free Quote
-                </button>
-                <button className="btn-outline" onClick={() => scrollTo("work")}
-                  style={{ borderColor: "rgba(255,255,255,0.4)", color: "white", fontSize: "1rem", padding: "0.875rem 2rem" }}>
-                  See Our Work
-                </button>
-              </div>
-              {/* Stats */}
-              <div style={{ display: "flex", gap: "2.5rem", marginTop: "3rem", paddingTop: "2rem", borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-                {[["100+", "Projects Done"], ["5★", "Avg. Rating"], ["10+", "Years Exp."]].map(([num, label]) => (
-                  <div key={label}>
-                    <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--teal-bright)" }}>{num}</div>
-                    <div style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.55)", marginTop: 2 }}>{label}</div>
-                  </div>
-                ))}
-              </div>
+          <div style={{ maxWidth: 580 }}>
+            {/* Location badge */}
+            <div style={{
+              display: "inline-block",
+              background: "var(--colors-teal)",
+              borderRadius: "var(--radius-full)",
+              padding: "0.35rem 1rem",
+              marginBottom: "1.5rem",
+            }}>
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--colors-teal-dark)" }}>
+                Springboro, OH — Serving the Greater Dayton Area
+              </span>
             </div>
-            {/* Right — Logo Card */}
-            <div className="desktop-only" style={{ display: "flex", justifyContent: "center" }}>
-              <div style={{
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                borderRadius: 24,
-                padding: "3rem",
-                textAlign: "center",
-              }}>
-                <img src="/TaysFixandFinish_Logo.png" alt="Tays Fix and Finish" style={{ width: 260, height: "auto" }} />
-                <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                  {["📞 (512) 956-6541", "✉️ zach.tays@gmail.com", "📍 Austin, TX"].map(item => (
-                    <div key={item} style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.9375rem" }}>{item}</div>
-                  ))}
+
+            <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 1.1, color: "var(--colors-black)", marginBottom: "1.5rem" }}>
+              Quality Work.<br />
+              <span style={{ color: "var(--colors-teal-dark)" }}>Clean Finish.</span><br />
+              Every Time.
+            </h1>
+
+            <p style={{ fontSize: "1.125rem", color: "var(--colors-gray-dark)", lineHeight: 1.7, marginBottom: "2.5rem", maxWidth: 480 }}>
+              Zachary Tays brings craftsmanship and reliability to every job — from drywall and painting to finish carpentry and handyman work. No shortcuts. No excuses.
+            </p>
+
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+              <button className="btn-primary" onClick={() => scrollTo("contact")}
+                style={{ fontSize: "1rem", padding: "0.875rem 2rem" }}>
+                Get in touch
+              </button>
+              <button className="btn-outline" onClick={() => scrollTo("work")}
+                style={{ fontSize: "1rem", padding: "0.875rem 2rem" }}>
+                See Our Work
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div style={{
+              display: "flex", gap: "2.5rem", marginTop: "3rem", paddingTop: "2rem",
+              borderTop: "1px solid var(--colors-teal)",
+            }}>
+              {[["100+", "Projects Done"], ["5★", "Avg. Rating"], ["10+", "Years Exp."]].map(([num, label]) => (
+                <div key={label}>
+                  <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--colors-teal-dark)" }}>{num}</div>
+                  <div style={{ fontSize: "0.8rem", color: "var(--colors-gray-med)", marginTop: 2 }}>{label}</div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* SERVICES */}
-      <section id="services" style={{ padding: "6rem 2rem", background: "var(--gray)" }}>
+      <section id="services" style={{ padding: "7rem 2rem", background: "var(--colors-teal)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <p className="section-tag">What We Do</p>
-            <h2 className="section-title">Our Services</h2>
-            <div className="divider" style={{ margin: "1rem auto 0" }} />
+            <p style={{
+              fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em",
+              textTransform: "uppercase", color: "var(--colors-teal-dark)", marginBottom: "0.75rem",
+            }}>What We Do</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, color: "var(--colors-black)", lineHeight: 1.15 }}>
+              Our Services
+            </h2>
+            <div style={{ width: 48, height: 3, background: "var(--colors-teal-dark)", borderRadius: 2, margin: "1rem auto 0" }} />
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
             {services.map((svc) => (
               <div key={svc.title} className="card-hover" style={{
-                background: "white", borderRadius: 12, padding: "2rem",
+                background: "var(--colors-white)",
+                borderRadius: "var(--radius-lg)",
+                padding: "2rem",
                 border: "1px solid rgba(0,0,0,0.06)",
               }}>
                 <div style={{ fontSize: "2.25rem", marginBottom: "1rem" }}>{svc.icon}</div>
-                <h3 style={{ fontSize: "1.125rem", fontWeight: 700, color: "var(--black)", marginBottom: "0.5rem" }}>{svc.title}</h3>
-                <p style={{ fontSize: "0.875rem", color: "var(--gray-dark)", lineHeight: 1.65, marginBottom: "1.25rem" }}>{svc.desc}</p>
+                <h3 style={{ fontSize: "1.125rem", fontWeight: 700, color: "var(--colors-black)", marginBottom: "0.5rem" }}>{svc.title}</h3>
+                <p style={{ fontSize: "0.875rem", color: "var(--colors-gray-dark)", lineHeight: 1.65, marginBottom: "1.25rem" }}>{svc.desc}</p>
                 <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                   {svc.items.map(item => (
-                    <li key={item} style={{ fontSize: "0.8125rem", color: "var(--teal-dark)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      <span style={{ color: "var(--teal-med)", fontWeight: 700 }}>—</span> {item}
+                    <li key={item} style={{ fontSize: "0.8125rem", color: "var(--colors-teal-dark)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span style={{ color: "var(--colors-teal-med)", fontWeight: 700 }}>—</span> {item}
                     </li>
                   ))}
                 </ul>
@@ -454,7 +501,7 @@ export default function Home() {
       </section>
 
       {/* GALLERY */}
-      <section id="work" style={{ padding: "6rem 2rem", background: "white" }}>
+      <section id="work" style={{ padding: "7rem 2rem", background: "var(--colors-white)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem", marginBottom: "3rem" }}>
             <div>
@@ -474,35 +521,37 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
             {filteredGallery.map((item, i) => (
               <div key={i} className="card-hover" style={{
-                borderRadius: 10, overflow: "hidden",
+                borderRadius: "var(--radius-lg)",
+                overflow: "hidden",
                 border: "1px solid rgba(0,0,0,0.06)",
-                background: "var(--gray)",
+                background: "var(--colors-gray)",
               }}>
                 <div className="gallery-img" style={{
-                  background: `hsl(${180 + i * 15}, 30%, ${75 + i * 3}%)`,
+                  background: `hsl(${185 + i * 12}, ${28 + i * 2}%, ${72 + i * 2}%)`,
                   fontSize: "3rem", display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
                   {item.category === "drywall" ? "🪣" : item.category === "painting" ? "🖌️" : "🔨"}
                 </div>
                 <div style={{ padding: "1rem 1.25rem" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--black)" }}>{item.title}</span>
+                    <span style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--colors-black)" }}>{item.title}</span>
                     <span style={{
                       fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase",
-                      letterSpacing: "0.08em", color: "var(--teal-med)",
-                      background: "rgba(95,151,152,0.1)", padding: "0.2rem 0.6rem", borderRadius: 100,
+                      letterSpacing: "0.08em", color: "var(--colors-teal-med)",
+                      background: "rgba(95,151,152,0.12)", padding: "0.2rem 0.6rem", borderRadius: "var(--radius-full)",
                     }}>{item.label}</span>
                   </div>
-                  <p style={{ fontSize: "0.8125rem", color: "var(--gray-dark)", marginTop: "0.3rem" }}>Austin, TX</p>
+                  <p style={{ fontSize: "0.8125rem", color: "var(--colors-gray-dark)", marginTop: "0.3rem" }}>Austin, TX</p>
                 </div>
               </div>
             ))}
           </div>
           <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
-            <p style={{ color: "var(--gray-dark)", fontSize: "0.9375rem" }}>
-              Have a project in mind? <button onClick={() => scrollTo("contact")}
-                style={{ background: "none", border: "none", color: "var(--teal-med)", fontWeight: 600, cursor: "pointer", textDecoration: "underline" }}>
-                Let's talk.
+            <p style={{ color: "var(--colors-gray-dark)", fontSize: "0.9375rem" }}>
+              Have a project in mind?{" "}
+              <button onClick={() => scrollTo("contact")}
+                style={{ background: "none", border: "none", color: "var(--colors-teal-med)", fontWeight: 600, cursor: "pointer", textDecoration: "underline" }}>
+                Let&apos;s talk.
               </button>
             </p>
           </div>
@@ -510,20 +559,25 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="testimonials" style={{ padding: "6rem 2rem", background: "var(--teal-dark)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--teal-bright)", marginBottom: "0.75rem" }}>
+      <section id="testimonials" style={{ padding: "7rem 2rem", background: "var(--colors-white)" }}>
+        <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center" }}>
+          <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--colors-teal-med)", marginBottom: "0.75rem" }}>
             What Clients Say
           </p>
-          <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, color: "white", lineHeight: 1.15, marginBottom: "3.5rem" }}>
-            Real Reviews From Real Homeowners
+          <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, color: "var(--colors-black)", lineHeight: 1.15, marginBottom: "3.5rem" }}>
+            Testimonials
           </h2>
 
-          {/* Testimonial Card */}
+          {/* Quote mark */}
+          <div style={{ fontSize: "5rem", lineHeight: 1, color: "var(--colors-teal-bright)", marginBottom: "1rem", fontFamily: "Georgia, serif" }}>
+            &ldquo;
+          </div>
+
           <div style={{
-            background: "rgba(255,255,255,0.07)",
-            border: "1px solid rgba(255,255,255,0.12)",
-            borderRadius: 16, padding: "3rem",
+            background: "var(--colors-gray)",
+            border: "1px solid rgba(0,0,0,0.06)",
+            borderRadius: "var(--radius-xl)",
+            padding: "3rem",
             transition: "opacity 0.3s",
           }}>
             <div style={{ display: "flex", justifyContent: "center", gap: "0.25rem", marginBottom: "1.5rem" }}>
@@ -531,56 +585,70 @@ export default function Home() {
                 <span key={i} className="star">★</span>
               ))}
             </div>
-            <p style={{ fontSize: "1.125rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.75, marginBottom: "2rem", fontStyle: "italic" }}>
-              "{testimonials[activeTestimonial].text}"
+            <p style={{ fontSize: "1.125rem", color: "var(--colors-black)", lineHeight: 1.75, marginBottom: "2rem", fontStyle: "italic" }}>
+              &ldquo;{testimonials[activeTestimonial].text}&rdquo;
             </p>
             <div>
-              <p style={{ fontWeight: 700, color: "white" }}>{testimonials[activeTestimonial].name}</p>
-              <p style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.5)", marginTop: "0.2rem" }}>
-                {testimonials[activeTestimonial].location} — {testimonials[activeTestimonial].project}
+              <p style={{ fontWeight: 700, color: "var(--colors-black)" }}>{testimonials[activeTestimonial].name}</p>
+              <p style={{ fontSize: "0.875rem", color: "var(--colors-gray-med)", marginTop: "0.2rem" }}>
+                {testimonials[activeTestimonial].location} &nbsp;·&nbsp; {testimonials[activeTestimonial].project}
               </p>
             </div>
           </div>
 
-          {/* Dots */}
-          <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "2rem" }}>
-            {testimonials.map((_, i) => (
-              <button key={i} className={`testimonial-dot ${i === activeTestimonial ? "active" : ""}`}
-                onClick={() => setActiveTestimonial(i)} />
-            ))}
+          {/* Arrows + dots */}
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1.5rem", marginTop: "2rem" }}>
+            <button
+              onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              style={{ background: "none", border: "1.5px solid var(--colors-teal-med)", borderRadius: "50%", width: 40, height: 40, cursor: "pointer", fontSize: "1rem", color: "var(--colors-teal-dark)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              ←
+            </button>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              {testimonials.map((_, i) => (
+                <button key={i} className={`testimonial-dot ${i === activeTestimonial ? "active" : ""}`}
+                  onClick={() => setActiveTestimonial(i)} />
+              ))}
+            </div>
+            <button
+              onClick={() => setActiveTestimonial((prev) => (prev + 1) % testimonials.length)}
+              style={{ background: "none", border: "1.5px solid var(--colors-teal-med)", borderRadius: "50%", width: 40, height: 40, cursor: "pointer", fontSize: "1rem", color: "var(--colors-teal-dark)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              →
+            </button>
           </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ padding: "6rem 2rem", background: "var(--gray)" }}>
+      <section id="contact" style={{ padding: "7rem 2rem", background: "var(--colors-gray)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <p className="section-tag">Let&apos;s Connect</p>
+            <h2 className="section-title">Get in Touch</h2>
+            <div className="divider" style={{ margin: "1rem auto 0" }} />
+          </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
             {/* Left */}
             <div>
-              <p className="section-tag">Get In Touch</p>
-              <h2 className="section-title">Request a Free Quote</h2>
-              <div className="divider" />
-              <p style={{ color: "var(--gray-dark)", lineHeight: 1.7, marginBottom: "2.5rem" }}>
-                Tell us about your project and we'll get back to you within 24 hours with a detailed, no-obligation estimate.
+              <p style={{ color: "var(--colors-gray-dark)", lineHeight: 1.7, marginBottom: "2.5rem" }}>
+                Tell us about your project and we&apos;ll get back to you within 24 hours with a detailed, no-obligation estimate.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                 {[
                   { icon: "📞", label: "Phone / Text", value: "(512) 956-6541", href: "tel:5129566541" },
                   { icon: "✉️", label: "Email", value: "zach.tays@gmail.com", href: "mailto:zach.tays@gmail.com" },
-                  { icon: "📍", label: "Service Area", value: "Austin & Greater Area, TX" },
+                  { icon: "📍", label: "Service Area", value: "Springboro, OH & Greater Dayton Area" },
                 ].map(({ icon, label, value, href }) => (
                   <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                     <div style={{
-                      width: 44, height: 44, borderRadius: 10,
-                      background: "var(--teal)", display: "flex", alignItems: "center", justifyContent: "center",
+                      width: 44, height: 44, borderRadius: "var(--radius-md)",
+                      background: "var(--colors-teal)", display: "flex", alignItems: "center", justifyContent: "center",
                       fontSize: "1.2rem", flexShrink: 0,
                     }}>{icon}</div>
                     <div>
-                      <p style={{ fontSize: "0.8125rem", color: "var(--gray-med)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
+                      <p style={{ fontSize: "0.8125rem", color: "var(--colors-gray-med)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
                       {href
-                        ? <a href={href} style={{ color: "var(--teal-dark)", fontWeight: 600, textDecoration: "none" }}>{value}</a>
-                        : <p style={{ color: "var(--teal-dark)", fontWeight: 600 }}>{value}</p>
+                        ? <a href={href} style={{ color: "var(--colors-teal-dark)", fontWeight: 600, textDecoration: "none" }}>{value}</a>
+                        : <p style={{ color: "var(--colors-teal-dark)", fontWeight: 600 }}>{value}</p>
                       }
                     </div>
                   </div>
@@ -589,20 +657,21 @@ export default function Home() {
             </div>
 
             {/* Form */}
-            <div style={{ background: "white", borderRadius: 16, padding: "2.5rem", border: "1px solid rgba(0,0,0,0.06)" }}>
+            <div style={{ background: "var(--colors-white)", borderRadius: "var(--radius-xl)", padding: "2.5rem", border: "1px solid rgba(0,0,0,0.06)" }}>
               {formSubmitted ? (
                 <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
                   <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>✅</div>
-                  <h3 style={{ fontSize: "1.375rem", fontWeight: 700, color: "var(--black)", marginBottom: "0.75rem" }}>Message Sent!</h3>
-                  <p style={{ color: "var(--gray-dark)", lineHeight: 1.65 }}>
+                  <h3 style={{ fontSize: "1.375rem", fontWeight: 700, color: "var(--colors-black)", marginBottom: "0.75rem" }}>Message Sent!</h3>
+                  <p style={{ color: "var(--colors-gray-dark)", lineHeight: 1.65 }}>
                     Thanks for reaching out. Zachary will be in touch within 24 hours to discuss your project.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                  <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--colors-teal-med)" }}>Contact</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                     <div>
-                      <label className="form-label">Name *</label>
+                      <label className="form-label">Full Name *</label>
                       <input className="form-input" type="text" required placeholder="John Smith"
                         value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                     </div>
@@ -613,46 +682,48 @@ export default function Home() {
                     </div>
                   </div>
                   <div>
-                    <label className="form-label">Email *</label>
+                    <label className="form-label">Email Address *</label>
                     <input className="form-input" type="email" required placeholder="you@email.com"
                       value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
+                  <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--colors-teal-med)", marginTop: "0.5rem" }}>Project</p>
                   <div>
-                    <label className="form-label">Service Needed</label>
+                    <label className="form-label">Project Type</label>
                     <select className="form-input"
                       value={formData.service} onChange={e => setFormData({ ...formData, service: e.target.value })}>
-                      <option value="">Select a service...</option>
+                      <option value="">Painting, drywall, tile, other...</option>
                       <option>Drywall Repair / Installation</option>
                       <option>Texture Matching</option>
                       <option>Interior Painting</option>
                       <option>Exterior Painting</option>
+                      <option>Tile Work</option>
                       <option>Finish Carpentry</option>
                       <option>Handyman Services</option>
                       <option>Multiple / Other</option>
                     </select>
                   </div>
                   <div>
-                    <label className="form-label">Project Details *</label>
-                    <textarea className="form-input" required rows={4}
-                      placeholder="Describe your project — size, scope, any issues to know about..."
+                    <label className="form-label">Message</label>
+                    <textarea className="form-input" rows={4}
+                      placeholder="Briefly describe your project details, desired start date etc."
                       value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })}
                       style={{ resize: "vertical" }} />
                   </div>
                   <div>
-                    <label className="form-label">Upload Photos (optional)</label>
                     <div
                       onClick={() => fileInputRef.current?.click()}
                       style={{
-                        border: "2px dashed var(--teal)",
-                        borderRadius: 8, padding: "1.5rem",
+                        border: "2px dashed var(--colors-teal-med)",
+                        borderRadius: "var(--radius-md)", padding: "1.25rem",
                         textAlign: "center", cursor: "pointer",
                         transition: "border-color 0.2s",
+                        background: "var(--colors-gray)",
                       }}>
-                      <p style={{ fontSize: "0.875rem", color: "var(--gray-dark)" }}>
-                        📎 Click to attach photos of your project
+                      <p style={{ fontSize: "0.875rem", color: "var(--colors-gray-dark)", fontWeight: 500 }}>
+                        📎 Upload Files
                       </p>
                       {formData.files.length > 0 && (
-                        <p style={{ fontSize: "0.8rem", color: "var(--teal-med)", marginTop: "0.5rem" }}>
+                        <p style={{ fontSize: "0.8rem", color: "var(--colors-teal-med)", marginTop: "0.5rem" }}>
                           {formData.files.length} file(s) selected
                         </p>
                       )}
@@ -662,7 +733,7 @@ export default function Home() {
                   </div>
                   <button type="submit" className="btn-primary"
                     style={{ width: "100%", textAlign: "center", padding: "1rem", fontSize: "1rem" }}>
-                    Send My Request →
+                    Send →
                   </button>
                 </form>
               )}
@@ -672,7 +743,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "var(--black)", padding: "3rem 2rem" }}>
+      <footer style={{ background: "var(--colors-black)", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
@@ -689,11 +760,11 @@ export default function Home() {
               ))}
             </div>
             <div style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)" }}>
-              © {new Date().getFullYear()} Tays Fix & Finish. Austin, TX.
+              © {new Date().getFullYear()} Tays Fix &amp; Finish. All rights reserved.
             </div>
           </div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem", paddingTop: "1.5rem", textAlign: "center" }}>
-            <a href="tel:5129566541" style={{ color: "var(--teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
+            <a href="tel:5129566541" style={{ color: "var(--colors-teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
               (512) 956-6541
             </a>
             <span style={{ color: "rgba(255,255,255,0.3)", margin: "0 1rem" }}>·</span>
