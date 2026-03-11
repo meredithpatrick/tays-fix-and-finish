@@ -626,36 +626,7 @@ export default function Home() {
             <h2 className="section-title">Get in Touch</h2>
             <div className="divider" style={{ margin: "1rem auto 0" }} />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "4rem", alignItems: "start" }}>
-            {/* Left */}
-            <div>
-              <p style={{ color: "var(--colors-gray-dark)", lineHeight: 1.7, marginBottom: "2.5rem" }}>
-                Tell us about your project and we&apos;ll get back to you within 24 hours with a detailed, no-obligation estimate.
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                {[
-                  { icon: "📞", label: "Phone / Text", value: "(512) 956-6541", href: "tel:5129566541" },
-                  { icon: "✉️", label: "Email", value: "zach.tays@gmail.com", href: "mailto:zach.tays@gmail.com" },
-                  { icon: "📍", label: "Service Area", value: "Springboro, OH & Greater Dayton Area" },
-                ].map(({ icon, label, value, href }) => (
-                  <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                    <div style={{
-                      width: 44, height: 44, borderRadius: "var(--radius-md)",
-                      background: "var(--colors-teal)", display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: "1.2rem", flexShrink: 0,
-                    }}>{icon}</div>
-                    <div>
-                      <p style={{ fontSize: "0.8125rem", color: "var(--colors-gray-med)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</p>
-                      {href
-                        ? <a href={href} style={{ color: "var(--colors-teal-dark)", fontWeight: 600, textDecoration: "none" }}>{value}</a>
-                        : <p style={{ color: "var(--colors-teal-dark)", fontWeight: 600 }}>{value}</p>
-                      }
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {/* Form */}
             <div style={{ background: "var(--colors-white)", borderRadius: "var(--radius-xl)", padding: "2.5rem", border: "1px solid rgba(0,0,0,0.06)" }}>
               {formSubmitted ? (
