@@ -409,18 +409,6 @@ export default function Home() {
                 See Our Work
               </button>
             </div>
-            {/* Stats */}
-            <div style={{
-              display: "flex", gap: "2.5rem", marginTop: "3rem", paddingTop: "2rem",
-              borderTop: "1px solid var(--colors-teal)",
-            }}>
-              {[["100+", "Projects Done"], ["10+", "Years Exp."]].map(([num, label]) => (
-                <div key={label}>
-                  <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--colors-teal-dark)" }}>{num}</div>
-                  <div style={{ fontSize: "0.8rem", color: "var(--colors-gray-med)", marginTop: 2 }}>{label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
