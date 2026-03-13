@@ -1,7 +1,5 @@
 "use client";
-
 import { useState, useEffect, useRef } from "react";
-
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -12,33 +10,30 @@ export default function Home() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
   const testimonials = [
     {
       name: "Sarah M.",
       location: "Austin, TX",
       rating: 5,
-      text: "Zachary transformed our living room with a flawless drywall repair after water damage. You can't even tell where the damage was — truly seamless work. Will hire again for every project!",
+      text: "Zach transformed our living room with a flawless drywall repair after water damage. You can't even tell where the damage was — truly seamless work. Will hire again for every project!",
       project: "Drywall Repair & Texture Match",
     },
     {
       name: "James R.",
       location: "Round Rock, TX",
       rating: 5,
-      text: "We had Tays Fix & Finish repaint our entire interior and the results were stunning. Clean lines, no drips, perfect color matching. Zachary is professional, punctual, and takes real pride in his craft.",
+      text: "We had Tays Fix & Finish repaint our entire interior and the results were stunning. Clean lines, no drips, perfect color matching. Zach is professional, punctual, and takes real pride in his craft.",
       project: "Full Interior Paint",
     },
     {
@@ -52,11 +47,10 @@ export default function Home() {
       name: "Mike & Dana T.",
       location: "Georgetown, TX",
       rating: 5,
-      text: "Hired Zachary for handyman work and he ended up solving three other issues we hadn't even noticed. Honest, skilled, and fairly priced. He's our go-to for everything now.",
+      text: "Hired Zach for handyman work and he ended up solving three other issues we hadn't even noticed. Honest, skilled, and fairly priced. He's our go-to for everything now.",
       project: "General Handyman",
     },
   ];
-
   const services = [
     {
       icon: "🪣",
@@ -67,8 +61,8 @@ export default function Home() {
     {
       icon: "🖌️",
       title: "Painting",
-      desc: "Interior and exterior painting with meticulous prep, clean lines, and a flawless finish that lasts.",
-      items: ["Interior Painting", "Exterior Painting", "Trim & Doors", "Cabinet Painting"],
+      desc: "Interior painting with meticulous prep, clean lines, and a flawless finish that lasts.",
+      items: ["Interior Painting", "Trim & Doors"],
     },
     {
       icon: "🔨",
@@ -79,42 +73,34 @@ export default function Home() {
     {
       icon: "🔧",
       title: "Handyman Services",
-      desc: "From honey-do lists to small repairs — Zachary handles the jobs that need a skilled, reliable hand.",
+      desc: "From honey-do lists to small repairs — Zach handles the jobs that need a skilled, reliable hand.",
       items: ["Fixture Installation", "Door & Hardware", "General Repairs", "Punch-out Work"],
     },
   ];
-
   const galleryItems = [
     { category: "drywall", label: "Drywall", title: "Seamless Texture Match", before: true },
     { category: "painting", label: "Painting", title: "Full Interior Repaint" },
     { category: "carpentry", label: "Carpentry", title: "Crown Molding Install" },
     { category: "drywall", label: "Drywall", title: "Water Damage Repair" },
-    { category: "painting", label: "Painting", title: "Cabinet Refinish" },
     { category: "carpentry", label: "Carpentry", title: "Built-in Shelving" },
   ];
-
   const filteredGallery = galleryFilter === "all"
     ? galleryItems
     : galleryItems.filter((item) => item.category === galleryFilter);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
   };
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   };
-
   return (
     <div className="min-h-screen" style={{ fontFamily: "var(--font-sans)", background: "var(--colors-white)" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-
         .nav-link {
           font-size: 0.875rem;
           font-weight: 500;
@@ -126,7 +112,6 @@ export default function Home() {
           cursor: pointer;
         }
         .nav-link:hover { color: var(--colors-teal-med); }
-
         .btn-primary {
           background: var(--colors-teal-dark);
           color: white;
@@ -143,7 +128,6 @@ export default function Home() {
           display: inline-block;
         }
         .btn-primary:hover { background: var(--colors-teal-med); transform: translateY(-1px); }
-
         .btn-outline {
           background: transparent;
           color: var(--colors-teal-dark);
@@ -160,7 +144,6 @@ export default function Home() {
           display: inline-block;
         }
         .btn-outline:hover { background: var(--colors-teal-dark); color: white; }
-
         .section-tag {
           font-size: 0.75rem;
           font-weight: 700;
@@ -169,14 +152,12 @@ export default function Home() {
           color: var(--colors-teal-med);
           margin-bottom: 0.75rem;
         }
-
         .section-title {
           font-size: clamp(1.75rem, 4vw, 2.75rem);
           font-weight: 700;
           color: var(--colors-black);
           line-height: 1.15;
         }
-
         .card-hover {
           transition: transform 0.2s, box-shadow 0.2s;
         }
@@ -184,7 +165,6 @@ export default function Home() {
           transform: translateY(-4px);
           box-shadow: 0 12px 40px rgba(0,0,0,0.1);
         }
-
         .gallery-img {
           width: 100%;
           aspect-ratio: 4/3;
@@ -195,7 +175,6 @@ export default function Home() {
           justify-content: center;
           font-size: 3rem;
         }
-
         .filter-btn {
           padding: 0.4rem 1rem;
           border-radius: var(--radius-full);
@@ -214,9 +193,7 @@ export default function Home() {
           color: white;
           border-color: var(--colors-teal-dark);
         }
-
         .star { color: #f59e0b; font-size: 1rem; }
-
         .testimonial-dot {
           width: 8px;
           height: 8px;
@@ -230,7 +207,6 @@ export default function Home() {
           background: var(--colors-teal-dark);
           transform: scale(1.3);
         }
-
         .form-input {
           width: 100%;
           padding: 0.75rem 1rem;
@@ -243,7 +219,6 @@ export default function Home() {
           outline: none;
         }
         .form-input:focus { border-color: var(--colors-teal-med); }
-
         .form-label {
           font-size: 0.875rem;
           font-weight: 600;
@@ -251,7 +226,6 @@ export default function Home() {
           margin-bottom: 0.35rem;
           display: block;
         }
-
         .mobile-menu {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -262,7 +236,6 @@ export default function Home() {
           flex-direction: column;
           gap: 2rem;
         }
-
         .divider {
           width: 48px;
           height: 3px;
@@ -270,7 +243,6 @@ export default function Home() {
           border-radius: 2px;
           margin: 1rem 0 1.5rem;
         }
-
         @media (min-width: 768px) {
           .mobile-only { display: none !important; }
         }
@@ -278,7 +250,6 @@ export default function Home() {
           .desktop-only { display: none !important; }
         }
       `}</style>
-
       {/* NAV */}
       <header style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
@@ -292,9 +263,8 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center" }}>
             <img src="/TFF-logo-horizontal-black.png" alt="Tays Fix and Finish" style={{ height: 44, width: "auto" }} />
           </div>
-
           <nav className="desktop-only" style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-            {["services", "work", "testimonials", "contact"].map((id) => (
+            {["services", "work", "contact"].map((id) => (
               <span key={id} className="nav-link" onClick={() => scrollTo(id)}>
                 {id === "work" ? "Our Work" : id.charAt(0).toUpperCase() + id.slice(1)}
               </span>
@@ -303,7 +273,6 @@ export default function Home() {
               Get in touch
             </button>
           </nav>
-
           <button className="mobile-only" onClick={() => setMobileMenuOpen(true)}
             style={{ background: "none", border: "none", cursor: "pointer", padding: 4 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
@@ -312,7 +281,6 @@ export default function Home() {
           </button>
         </div>
       </header>
-
       {/* MOBILE MENU */}
       {mobileMenuOpen && (
         <div className="mobile-menu">
@@ -322,7 +290,7 @@ export default function Home() {
               style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer" }}>✕</button>
           </div>
           <nav style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            {["services", "work", "testimonials", "contact"].map((id) => (
+            {["services", "work", "contact"].map((id) => (
               <span key={id} onClick={() => scrollTo(id)}
                 style={{ fontSize: "1.25rem", fontWeight: 600, cursor: "pointer", color: "var(--colors-black)" }}>
                 {id === "work" ? "Our Work" : id.charAt(0).toUpperCase() + id.slice(1)}
@@ -334,7 +302,6 @@ export default function Home() {
           </button>
         </div>
       )}
-
       {/* HERO */}
       <section style={{
         minHeight: "100vh",
@@ -410,7 +377,6 @@ export default function Home() {
             opacity: 0.45,
           }} />
         </div>
-
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "4rem 2rem", position: "relative", zIndex: 1, width: "100%" }}>
           <div style={{ maxWidth: 580 }}>
             {/* Location badge */}
@@ -425,17 +391,14 @@ export default function Home() {
                 Springboro, OH — Serving the Greater Dayton Area
               </span>
             </div>
-
             <h1 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 800, lineHeight: 1.1, color: "var(--colors-black)", marginBottom: "1.5rem" }}>
               Quality Work.<br />
               <span style={{ color: "var(--colors-teal-dark)" }}>Clean Finish.</span><br />
               Every Time.
             </h1>
-
             <p style={{ fontSize: "1.125rem", color: "var(--colors-gray-dark)", lineHeight: 1.7, marginBottom: "2.5rem", maxWidth: 480 }}>
-              Zachary Tays brings craftsmanship and reliability to every job — from drywall and painting to finish carpentry and handyman work. No shortcuts. No excuses.
+              Zach brings craftsmanship and reliability to every job — from drywall and painting to finish carpentry and handyman work. No shortcuts. No excuses.
             </p>
-
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
               <button className="btn-primary" onClick={() => scrollTo("contact")}
                 style={{ fontSize: "1rem", padding: "0.875rem 2rem" }}>
@@ -446,13 +409,12 @@ export default function Home() {
                 See Our Work
               </button>
             </div>
-
             {/* Stats */}
             <div style={{
               display: "flex", gap: "2.5rem", marginTop: "3rem", paddingTop: "2rem",
               borderTop: "1px solid var(--colors-teal)",
             }}>
-              {[["100+", "Projects Done"], ["5★", "Avg. Rating"], ["10+", "Years Exp."]].map(([num, label]) => (
+              {[["100+", "Projects Done"], ["10+", "Years Exp."]].map(([num, label]) => (
                 <div key={label}>
                   <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "var(--colors-teal-dark)" }}>{num}</div>
                   <div style={{ fontSize: "0.8rem", color: "var(--colors-gray-med)", marginTop: 2 }}>{label}</div>
@@ -462,7 +424,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* SERVICES */}
       <section id="services" style={{ padding: "7rem 2rem", background: "var(--colors-teal)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -499,7 +460,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* GALLERY */}
       <section id="work" style={{ padding: "7rem 2rem", background: "var(--colors-white)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -557,8 +517,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* TESTIMONIALS */}
+      {/* TESTIMONIALS — commented out until reviews are ready to add
       <section id="testimonials" style={{ padding: "7rem 2rem", background: "var(--colors-white)" }}>
         <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center" }}>
           <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--colors-teal-med)", marginBottom: "0.75rem" }}>
@@ -567,12 +526,9 @@ export default function Home() {
           <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 700, color: "var(--colors-black)", lineHeight: 1.15, marginBottom: "3.5rem" }}>
             Testimonials
           </h2>
-
-          {/* Quote mark */}
           <div style={{ fontSize: "5rem", lineHeight: 1, color: "var(--colors-teal-bright)", marginBottom: "1rem", fontFamily: "Georgia, serif" }}>
             &ldquo;
           </div>
-
           <div style={{
             background: "var(--colors-gray)",
             border: "1px solid rgba(0,0,0,0.06)",
@@ -595,8 +551,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-
-          {/* Arrows + dots */}
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1.5rem", marginTop: "2rem" }}>
             <button
               onClick={() => setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
@@ -617,7 +571,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      */}
       {/* CONTACT */}
       <section id="contact" style={{ padding: "7rem 2rem", background: "var(--colors-gray)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -634,7 +588,7 @@ export default function Home() {
                   <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>✅</div>
                   <h3 style={{ fontSize: "1.375rem", fontWeight: 700, color: "var(--colors-black)", marginBottom: "0.75rem" }}>Message Sent!</h3>
                   <p style={{ color: "var(--colors-gray-dark)", lineHeight: 1.65 }}>
-                    Thanks for reaching out. Zachary will be in touch within 24 hours to discuss your project.
+                    Thanks for reaching out. Zach will be in touch within 24 hours to discuss your project.
                   </p>
                 </div>
               ) : (
@@ -666,7 +620,6 @@ export default function Home() {
                       <option>Drywall Repair / Installation</option>
                       <option>Texture Matching</option>
                       <option>Interior Painting</option>
-                      <option>Exterior Painting</option>
                       <option>Tile Work</option>
                       <option>Finish Carpentry</option>
                       <option>Handyman Services</option>
@@ -712,7 +665,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* FOOTER */}
       <footer style={{ background: "var(--colors-black)", padding: "3rem 2rem" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -721,30 +673,7 @@ export default function Home() {
               <img src="/TFF-logo-horizontal-white.png" alt="Tays Fix and Finish" style={{ height: 40 }} />
             </div>
             <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
-              {["services", "work", "testimonials", "contact"].map(id => (
+              {["services", "work", "contact"].map(id => (
                 <span key={id} onClick={() => scrollTo(id)}
                   style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)", cursor: "pointer", textTransform: "capitalize" }}
-                  onMouseOver={e => (e.currentTarget.style.color = "white")}
-                  onMouseOut={e => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}>
-                  {id === "work" ? "Our Work" : id.charAt(0).toUpperCase() + id.slice(1)}
-                </span>
-              ))}
-            </div>
-            <div style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)" }}>
-              © {new Date().getFullYear()} Tays Fix &amp; Finish. All rights reserved.
-            </div>
-          </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem", paddingTop: "1.5rem", textAlign: "center" }}>
-            <a href="tel:5129566541" style={{ color: "var(--colors-teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
-              (512) 956-6541
-            </a>
-            <span style={{ color: "rgba(255,255,255,0.3)", margin: "0 1rem" }}>·</span>
-            <a href="mailto:zach.tays@gmail.com" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9375rem", textDecoration: "none" }}>
-              zach.tays@gmail.com
-            </a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+                  onMouseOver={
