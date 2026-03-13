@@ -677,4 +677,26 @@ export default function Home() {
                 <span key={id} onClick={() => scrollTo(id)}
                   style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)", cursor: "pointer", textTransform: "capitalize" }}
                   onMouseOver={e => (e.currentTarget.style.color = "white")}
-                  onMouseOut={e => (e.
+                  onMouseOut={e => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}>
+                  {id === "work" ? "Our Work" : id.charAt(0).toUpperCase() + id.slice(1)}
+                </span>
+              ))}
+            </div>
+            <div style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)" }}>
+              © {new Date().getFullYear()} Tays Fix &amp; Finish. All rights reserved.
+            </div>
+          </div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem", paddingTop: "1.5rem", textAlign: "center" }}>
+            <a href="tel:5129566541" style={{ color: "var(--colors-teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
+              (512) 956-6541
+            </a>
+            <span style={{ color: "rgba(255,255,255,0.3)", margin: "0 1rem" }}>·</span>
+            <a href="mailto:zach.tays@gmail.com" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9375rem", textDecoration: "none" }}>
+              zach.tays@gmail.com
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
