@@ -676,4 +676,5 @@ export default function Home() {
               {["services", "work", "contact"].map(id => (
                 <span key={id} onClick={() => scrollTo(id)}
                   style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.5)", cursor: "pointer", textTransform: "capitalize" }}
-                  onMouseOver={
+                  onMouseOver={e => (e.currentTarget.style.color = "white")}
+                  onMouseOut={e => (e.
