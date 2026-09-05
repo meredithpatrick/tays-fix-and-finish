@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tays Fix and Finish — Drywall, Painting & Finish Carpentry in Austin, TX",
+  title: "Tays Fix and Finish — Drywall, Painting & Finish Carpentry in Springboro, OH",
   description:
-    "Tays Fix and Finish — Professional drywall, painting, finish carpentry, and handyman services in Austin, TX. Quality work. Clean finish. Every time.",
-  keywords: "drywall repair Austin TX, painting contractor Austin, finish carpentry Austin, handyman Austin Texas, Tays Fix and Finish",
+    "Professional drywall, painting, finish carpentry, and handyman services in Springboro, OH and the Greater Dayton area. Quality work. Clean finish. Every time.",
+  keywords: "drywall repair Springboro OH, drywall contractor Dayton, painting contractor Springboro, finish carpentry Dayton Ohio, handyman Springboro Ohio, Tays Fix and Finish",
   openGraph: {
     title: "Tays Fix and Finish",
-    description: "Professional drywall, painting & finish carpentry in Austin, TX.",
+    description: "Professional drywall, painting & finish carpentry in Springboro, OH.",
     siteName: "Tays Fix and Finish",
     locale: "en_US",
     type: "website",

@@ -1,5 +1,37 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+// Phone photos are 3-5MB each; Vercel caps a request body at 4.5MB.
+// Downscale in the browser so a customer can attach several without the
+// upload failing. A 12MP photo comes out around 300KB at these settings.
+async function downscaleImage(file: File, maxDimension = 1600, quality = 0.8): Promise<File> {
+  if (!file.type.startsWith("image/")) return file;
+
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
+    if (scale === 1 && file.size < 900_000) return file;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    bitmap.close();
+
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, "image/jpeg", quality)
+    );
+    if (!blob || blob.size >= file.size) return file;
+
+    const name = file.name.replace(/\.[^.]+$/, "") + ".jpg";
+    return new File([blob], name, { type: "image/jpeg" });
+  } catch {
+    return file;
+  }
+}
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -9,6 +41,8 @@ export default function Home() {
     name: "", email: "", phone: "", service: "", message: "", files: [] as File[]
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -21,31 +55,34 @@ export default function Home() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+  // PLACEHOLDER CONTENT — these are NOT real customers.
+  // The testimonials section below is commented out on purpose.
+  // Replace with real, attributable reviews before uncommenting it.
   const testimonials = [
     {
       name: "Sarah M.",
-      location: "Austin, TX",
+      location: "Springboro, OH",
       rating: 5,
       text: "Zach transformed our living room with a flawless drywall repair after water damage. You can't even tell where the damage was — truly seamless work. Will hire again for every project!",
       project: "Drywall Repair & Texture Match",
     },
     {
       name: "James R.",
-      location: "Round Rock, TX",
+      location: "Centerville, OH",
       rating: 5,
       text: "We had Tays Fix & Finish repaint our entire interior and the results were stunning. Clean lines, no drips, perfect color matching. Zach is professional, punctual, and takes real pride in his craft.",
       project: "Full Interior Paint",
     },
     {
       name: "Lisa K.",
-      location: "Cedar Park, TX",
+      location: "Dayton, OH",
       rating: 5,
       text: "From the estimate to the final walkthrough, everything was smooth and professional. The finish carpentry on our built-ins looks like it came from a custom cabinet shop. Incredible attention to detail.",
       project: "Finish Carpentry & Built-ins",
     },
     {
       name: "Mike & Dana T.",
-      location: "Georgetown, TX",
+      location: "Miamisburg, OH",
       rating: 5,
       text: "Hired Zach for handyman work and he ended up solving three other issues we hadn't even noticed. Honest, skilled, and fairly priced. He's our go-to for everything now.",
       project: "General Handyman",
@@ -87,9 +124,37 @@ export default function Home() {
   const filteredGallery = galleryFilter === "all"
     ? galleryItems
     : galleryItems.filter((item) => item.category === galleryFilter);
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      payload.append("phone", formData.phone);
+      payload.append("service", formData.service);
+      payload.append("message", formData.message);
+      formData.files.forEach((file) => payload.append("files", file));
+
+      const res = await fetch("/api/contact", { method: "POST", body: payload });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setFormSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -489,7 +554,7 @@ export default function Home() {
                       background: "rgba(95,151,152,0.12)", padding: "0.2rem 0.6rem", borderRadius: "var(--radius-full)",
                     }}>{item.label}</span>
                   </div>
-                  <p style={{ fontSize: "0.8125rem", color: "var(--colors-gray-dark)", marginTop: "0.3rem" }}>Austin, TX</p>
+                  <p style={{ fontSize: "0.8125rem", color: "var(--colors-gray-dark)", marginTop: "0.3rem" }}>Springboro, OH</p>
                 </div>
               </div>
             ))}
@@ -590,7 +655,7 @@ export default function Home() {
                     </div>
                     <div>
                       <label className="form-label">Phone</label>
-                      <input className="form-input" type="tel" placeholder="(512) 000-0000"
+                      <input className="form-input" type="tel" placeholder="(937) 000-0000"
                         value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
                     </div>
                   </div>
@@ -641,11 +706,26 @@ export default function Home() {
                       )}
                     </div>
                     <input ref={fileInputRef} type="file" multiple accept="image/*" style={{ display: "none" }}
-                      onChange={e => setFormData({ ...formData, files: Array.from(e.target.files || []) })} />
+                      onChange={async e => {
+                        const picked = Array.from(e.target.files || []).slice(0, 8);
+                        setFormData(prev => ({ ...prev, files: picked }));
+                        const shrunk = await Promise.all(picked.map(f => downscaleImage(f)));
+                        setFormData(prev => ({ ...prev, files: shrunk }));
+                      }} />
                   </div>
-                  <button type="submit" className="btn-primary"
-                    style={{ width: "100%", textAlign: "center", padding: "1rem", fontSize: "1rem" }}>
-                    Send →
+                  {submitError && (
+                    <p role="alert" style={{ fontSize: "0.875rem", color: "#b3261e", lineHeight: 1.5 }}>
+                      {submitError} You can also reach Zach directly at{" "}
+                      <a href="tel:9375142700" style={{ color: "#b3261e", fontWeight: 600 }}>(937) 514-2700</a>.
+                    </p>
+                  )}
+                  <button type="submit" className="btn-primary" disabled={submitting}
+                    style={{
+                      width: "100%", textAlign: "center", padding: "1rem", fontSize: "1rem",
+                      opacity: submitting ? 0.6 : 1,
+                      cursor: submitting ? "not-allowed" : "pointer",
+                    }}>
+                    {submitting ? "Sending..." : "Send →"}
                   </button>
                 </form>
               )}
@@ -675,12 +755,12 @@ export default function Home() {
             </div>
           </div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem", paddingTop: "1.5rem", textAlign: "center" }}>
-            <a href="tel:5129566541" style={{ color: "var(--colors-teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
-              (512) 956-6541
+            <a href="tel:9375142700" style={{ color: "var(--colors-teal-bright)", fontSize: "1.125rem", fontWeight: 700, textDecoration: "none" }}>
+              (937) 514-2700
             </a>
             <span style={{ color: "rgba(255,255,255,0.3)", margin: "0 1rem" }}>·</span>
-            <a href="mailto:zach.tays@gmail.com" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9375rem", textDecoration: "none" }}>
-              zach.tays@gmail.com
+            <a href="mailto:taysfix@gmail.com" style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.9375rem", textDecoration: "none" }}>
+              taysfix@gmail.com
             </a>
           </div>
         </div>
